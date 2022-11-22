@@ -1,0 +1,22 @@
+{
+  "name": "attendancesystem",
+  "version": "1.0.0",
+  "description": "capstone project 2022",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "author": "ajx",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
