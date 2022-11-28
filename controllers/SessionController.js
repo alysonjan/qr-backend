@@ -36,7 +36,7 @@ const getAttendanceSession = async(req,res) => {
   const todayDate = await formattedDate()
   try {
     const sqlQuery = `SELECT DISTINCT CONCAT(st.fname,' ', st.lname ) AS fullname,
-                      st.student_id, st.section, st.yr_lvl, at.status 
+                      st.student_id, st.section, st.yr_lvl, at.time_in, at.status
                       FROM student AS st INNER JOIN attendance AS at ON st.student_id = at.student_id 
                       JOIN class_session AS cs ON cs.class_id = at.class_id  
                       WHERE cs.session_id = ? AND cs.closed = 0 `

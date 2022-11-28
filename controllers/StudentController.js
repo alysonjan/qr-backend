@@ -2,7 +2,7 @@ const db = require('../configs/database')
 const { currentDateAndTime } = require('../utils/DateTime')
 
 const addStudent = async (req, res) => {
-  const { student_id, firstname, lastname, section, year_level } = req.body
+  const { student_id, firstname, lastname, section, year_level, email } = req.body
   let date = await currentDateAndTime()
   let status = 'active'
   try {
@@ -15,13 +15,13 @@ const addStudent = async (req, res) => {
         })
       } else {
         const sqlQuery =
-          'INSERT INTO student (student_id, fname, lname, section, yr_lvl, status, date_created) VALUES (?,?,?,?,?,?,?)'
+          'INSERT INTO student (student_id, fname, lname, section, yr_lvl, status, date_created,email) VALUES (?,?,?,?,?,?,?,?)'
         db.query(
           sqlQuery,
-          [student_id, firstname, lastname, section, year_level, status, date],
+          [student_id, firstname, lastname, section, year_level, status, date, email],
           (err, result) => {
             if (err) return res.json({ msg: err.message })
-            res.status(201).json({ msg: 'New Student Successfully Added' })
+            res.status(201).json({ msg: '1 student added to the masterlist' })
           }
         )
       }
