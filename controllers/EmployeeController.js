@@ -11,7 +11,7 @@ const adminCreateUser = async (req, res) => {
     const hashedPasword = await encryptPassword(password)
 
     const checkUsername =
-      'SELECT * FROM employee WHERE employee_id = ? AND username = ?'
+      'SELECT * FROM employee WHERE employee_id = ? OR username = ?'
     db.query(checkUsername, [employee_id, username], (err, result) => {
       if (err) return res.json(err.message)
       if (result.length > 0) {
