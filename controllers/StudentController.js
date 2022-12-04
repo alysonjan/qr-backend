@@ -1,10 +1,21 @@
 const db = require('../configs/database')
+const sendMailGun = require('../mailgun/mailgun')
+const sendQrCodeMail = require('../sendgrid/sendMail')
 const { currentDateAndTime } = require('../utils/DateTime')
+const { generateQrCode } = require('../utils/qr')
 
 const addStudent = async (req, res) => {
   const { student_id, firstname, lastname, section, year_level, email } = req.body
   let date = await currentDateAndTime()
   let status = 'active'
+  let jsonData = {
+    'firstname':firstname,
+    'lastname':lastname,
+    'student_id':student_id,
+    'email':email,
+    'year':year_level,
+    'section':section,
+  }
   try {
     const checkStudentID = 'SELECT * FROM student WHERE student_id = ?'
     db.query(checkStudentID, [student_id], (err, result) => {
@@ -19,8 +30,15 @@ const addStudent = async (req, res) => {
         db.query(
           sqlQuery,
           [student_id, firstname, lastname, section, year_level, status, date, email],
-          (err, result) => {
+          async(err, result) => {
             if (err) return res.json({ msg: err.message })
+            let genQr = await generateQrCode(jsonData)
+            // if (genQr !== null){
+            //   await sendQrCodeMail(email,genQr)
+            // }
+            if (genQr !== null){
+              sendMailGun(email,genQr)
+            }
             res.status(201).json({ msg: '1 student added to the masterlist' })
           }
         )

@@ -3,7 +3,7 @@ const { createConnection } = require('mysql')
 const db = createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'admin',
+  password: 'password',
   database: 'qr_attendance_system',
 })
 
