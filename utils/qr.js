@@ -1,5 +1,4 @@
 const QRCode = require('qrcode')
-
 const generateQrCode = async (jsonData) => {
     try {
         const response = await QRCode.toDataURL(JSON.stringify(jsonData))

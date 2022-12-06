@@ -1,6 +1,7 @@
 const db = require('../configs/database')
 const sendMailGun = require('../mailgun/mailgun')
 const sendQrCodeMail = require('../sendgrid/sendMail')
+const sendEmailToStudent = require('../sendinblue/sib')
 const { currentDateAndTime } = require('../utils/DateTime')
 const { generateQrCode } = require('../utils/qr')
 
@@ -33,12 +34,14 @@ const addStudent = async (req, res) => {
           async(err, result) => {
             if (err) return res.json({ msg: err.message })
             let genQr = await generateQrCode(jsonData)
-            // if (genQr !== null){
-            //   await sendQrCodeMail(email,genQr)
-            // }
+
             if (genQr !== null){
-              sendMailGun(email,genQr)
+              await sendQrCodeMail(email,genQr)
             }
+            // if (genQr !== null){
+            //   // sendMailGun(email,genQr)
+            //   sendEmailToStudent(email,genQr)
+            // }
             res.status(201).json({ msg: '1 student added to the masterlist' })
           }
         )

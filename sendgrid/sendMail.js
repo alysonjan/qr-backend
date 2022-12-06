@@ -15,8 +15,8 @@ const sendQrCodeMail = async (receiverMail, qrcode) => {
   console.log(receiverMail)
   const msg = {
     to: receiverMail,
-    from: 'ajaxdev22@gmail.com',
-    templateId: 'd-25e2f36753a84d8ab5cbf82d8b86a93e',
+    from: 'alpanambitan.swu@phinmaed.com',
+    templateId: process.env.ALEN_TEMPLATE,
     dynamic_template_data: {
       qrcode: qrcode,
     },
